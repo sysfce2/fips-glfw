@@ -34,26 +34,32 @@
 // macros in whatever way is suitable.
 //========================================================================
 
-// Define this to 1 if building GLFW for X11
 #if FIPS_GLFW_LINUX
+#if FIPS_GLFW_WAYLAND
+// Define this to 1 if building GLFW for Wayland
+#define _GLFW_WAYLAND
+#else
+// Define this to 1 if building GLFW for X11
 #define _GLFW_X11 (1)
+#endif
 // Define this to 1 if building GLFW for Win32
 #elif FIPS_GLFW_WINDOWS
 #define _GLFW_WIN32 (1)
 // Define this to 1 if building GLFW for Cocoa
 #elif FIPS_GLFW_MACOS
 #define _GLFW_COCOA (1)
-// Define this to 1 if building GLFW for Wayland
-// #define _GLFW_WAYLAND
 // Define this to 1 if building GLFW for Mir
 // #define _GLFW_MIR
 #endif
 
-// Define this to 1 if building GLFW for EGL
-// #define _GLFW_EGL
-// Define this to 1 if building GLFW for GLX
 #if FIPS_GLFW_LINUX
+#if FIPS_GLFW_WAYLAND
+// Define this to 1 if building GLFW for EGL
+#define _GLFW_EGL
+#else
+// Define this to 1 if building GLFW for GLX
 #define _GLFW_GLX (1)
+#endif
 // Define this to 1 if building GLFW for WGL
 #elif FIPS_GLFW_WINDOWS
 #define _GLFW_WGL (1)
