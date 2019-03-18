@@ -59,7 +59,7 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
                 find_package(WaylandProtocols 1.15 REQUIRED)
 
                 include_directories("${Wayland_INCLUDE_DIRS}")
-                fips_libs("${Wayland_LIBRARIES}" "${CMAKE_THREAD_LIBS_INIT}" EGL)
+                fips_libs("${Wayland_LIBRARIES}" "${CMAKE_THREAD_LIBS_INIT}" EGL xkbcommon)
 
                 find_package(XKBCommon REQUIRED)
                 include_directories("${XKBCOMMON_INCLUDE_DIRS}")
@@ -112,7 +112,7 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
                 posix_time.c posix_thread.c xkb_unicode.c linux_joystick.c
                 linux_joystick.h xkb_unicode.h posix_time.h posix_thread.h
             )
-            fips_libs(GL m ${CMAKE_DL_LIBS} xkbcommon)
+            fips_libs(GL m ${CMAKE_DL_LIBS})
         endif()
 
     fips_end_lib()
