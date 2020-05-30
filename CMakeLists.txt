@@ -119,9 +119,9 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
 
     # hack to silence some warnings in GLFW code
     if (FIPS_CLANG)
-        set_target_properties(glfw3 PROPERTIES COMPILE_FLAGS "-Wno-sign-compare -Wno-missing-field-initializers -Wno-deprecated-declarations")
+        set_target_properties(glfw3 PROPERTIES COMPILE_FLAGS "-Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-deprecated-declarations")
     elseif(FIPS_GCC)
-        set_target_properties(glfw3 PROPERTIES COMPILE_FLAGS "-Wno-sign-compare -Wno-missing-field-initializers")
+        set_target_properties(glfw3 PROPERTIES COMPILE_FLAGS "-Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers")
     elseif(FIPS_MSVC)
         set_target_properties(glfw3 PROPERTIES COMPILE_FLAGS "/wd4152 /wd4204 /wd4242 /wd4244 /wd4668 /wd4996")
     endif()
