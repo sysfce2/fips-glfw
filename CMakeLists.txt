@@ -1,9 +1,9 @@
 if (NOT FIPS_IMPORT)
-    cmake_minimum_required(VERSION 2.8)
+    cmake_minimum_required(VERSION 3.21)
+    project(fips-glfw)
     get_filename_component(FIPS_ROOT_DIR "../fips" ABSOLUTE)
     include("${FIPS_ROOT_DIR}/cmake/fips.cmake")
     fips_setup()
-    fips_project(fips-glfw)
 endif()
 
 option(FIPS_GLFW_WAYLAND "Enable GLFW Wayland support" OFF)
@@ -36,7 +36,7 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
                 egl_context.h egl_context.c
                 osmesa_context.h osmesa_context.c
             )
-            fips_frameworks_osx(Cocoa CoreVideo OpenGL Carbon)
+            fips_frameworks_osx(Cocoa CoreVideo OpenGL Carbon IOKit)
         elseif (FIPS_WINDOWS)
             add_definitions(-DFIPS_GLFW_WINDOWS=1)
             fips_files(
@@ -97,7 +97,7 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
                 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
                 fips_dir(glfw/src GROUP .)
                 fips_files(
-                    wl_platform.h wl_init.c wl_monitor.c wl_window.c 
+                    wl_platform.h wl_init.c wl_monitor.c wl_window.c
                 )
             else()
                 fips_files(
