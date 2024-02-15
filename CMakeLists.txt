@@ -24,17 +24,18 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
         fips_dir(glfw/src GROUP .)
         fips_files(
             internal.h
-            context.c init.c input.c monitor.c vulkan.c window.c
+            context.c init.c input.c monitor.c vulkan.c window.c platform.c
+            null_init.c null_joystick.c null_monitor.c null_window.c
         )
         if (FIPS_MACOS)
             add_definitions(-DFIPS_GLFW_MACOS=1)
             fips_files(
                 cocoa_platform.h cocoa_joystick.h posix_thread.h
                 cocoa_init.m cocoa_monitor.m cocoa_window.m
-                cocoa_joystick.m cocoa_time.c posix_thread.c
-                nsgl_context.h nsgl_context.m
-                egl_context.h egl_context.c
-                osmesa_context.h osmesa_context.c
+                cocoa_joystick.m cocoa_time.c posix_thread.c posix_module.c
+                nsgl_context.m
+                egl_context.c
+                osmesa_context.c
             )
             fips_frameworks_osx(Cocoa CoreVideo OpenGL Carbon IOKit)
         elseif (FIPS_WINDOWS)
@@ -42,10 +43,10 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
             fips_files(
                 win32_platform.h win32_joystick.h
                 win32_init.c win32_monitor.c win32_time.c
-                win32_thread.c win32_window.c win32_joystick.c
-                wgl_context.h wgl_context.c
-                egl_context.h egl_context.c
-                osmesa_context.h osmesa_context.c
+                win32_thread.c win32_window.c win32_joystick.c win32_module.c
+                wgl_context.c
+                egl_context.c
+                osmesa_context.c
             )
             fips_libs(opengl32)
         elseif (FIPS_LINUX)
@@ -102,15 +103,16 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
             else()
                 fips_files(
                     x11_platform.h x11_init.c x11_monitor.c x11_window.c
-                    glx_context.h glx_context.c
+                    glx_context.c
                 )
                 fips_libs(X11 Xrandr Xi Xinerama Xxf86vm Xcursor)
             endif()
             fips_files(
-                osmesa_context.h osmesa_context.c
-                egl_context.c egl_context.h
+                osmesa_context.c
+                egl_context.c
                 posix_time.c posix_thread.c xkb_unicode.c linux_joystick.c
                 linux_joystick.h xkb_unicode.h posix_time.h posix_thread.h
+                posix_module.c
             )
             fips_libs(GL m ${CMAKE_DL_LIBS})
         endif()
