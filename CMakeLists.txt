@@ -112,7 +112,7 @@ if ((FIPS_MACOS OR FIPS_WINDOWS OR FIPS_LINUX) AND NOT (FIPS_RASPBERRYPI OR FIPS
                 egl_context.c
                 posix_time.c posix_thread.c xkb_unicode.c linux_joystick.c
                 linux_joystick.h xkb_unicode.h posix_time.h posix_thread.h
-                posix_module.c
+                posix_module.c posix_poll.c
             )
             fips_libs(GL m ${CMAKE_DL_LIBS})
         endif()
